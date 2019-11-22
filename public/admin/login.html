@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <title>Sign in &laquo; Admin</title>
+  <link rel="stylesheet" href="../assets/vendors/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+
+<body>
+  <div class="login">
+    <div class="login-wrap">
+      <img class="avatar" src="../assets/img/default.png">
+      <!-- 有错误信息时展示 -->
+      <div  class="alert-danger" id='wrong' style='height: 24px;margin-bottom: 5px;padding: 3px;color: red;'>
+        <!-- <strong>错误！</strong>  -->
+      </div>
+      <div class="form-group">
+        <label for="email" class="sr-only">邮箱</label>
+        <input id="email" type="email" class="form-control" placeholder="邮箱" autofocus>
+      </div>
+      <div class="form-group">
+        <label for="password" class="sr-only">密码</label>
+        <input id="password" type="password" class="form-control" placeholder="密码">
+      </div>
+      <button class="btn btn-primary btn-block" id='loginBtn'>登 录</button>
+    </div>
+  </div>
+  <script src="../assets/vendors/jquery/jquery.min.js"></script>
+
+  <script>
+    // 给登录按钮添加点击事件
+    $('#loginBtn').on('click', function () {
+      var email = $('#email').val();
+      var password = $('#password').val();
+      // 判断邮箱和密码是否填写
+      if (email.trim().length == 0) {
+        // alert('请输入邮箱')
+        $('#wrong').html('请输入邮箱地址')
+        return;
+      }
+      if (password.trim().length == 0) {
+        $('#wrong').html('请输入密码')
+        return;
+      }
+      // 请求数据 判断是否用户名和密码是否正确
+      $.ajax({
+        type: 'post',
+        url: '/login',
+        data: {
+          email: email,
+          password: password
+        },
+        success: function (response) {
+          // 定向到index.html首页
+          location.href = 'index.html'
+          console.log(response);
+        },
+        error: function () {
+          $('#wrong').html('邮箱或者密码错误')
+        }
+      })
+    })
+  </script>
+</body>
+
+</html>
