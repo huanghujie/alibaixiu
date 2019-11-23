@@ -29,7 +29,7 @@ $('#modifyUser').on('change','#avatar',function(){
      // 告诉$.ajax不要设置请求参数的类型
      contentType: false,
      success: function (response) {
-         console.log(response);
+        //  console.log(response);
          $('#preview').attr('src', response[0].avatar);
          $('#avatarHidden').val(response[0].avatar);
      }
